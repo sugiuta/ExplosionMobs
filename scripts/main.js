@@ -5,6 +5,14 @@ let radius = 5;
 let breakBlocks = false;
 let underWater = false;
 
+world.afterEvents.playerJoin.subscribe(pjEvent => { // データの読み込み
+    if (world.getDynamicProperty(`preferences`) == null) return;
+    let preferencesData = JSON.parse(world.getDynamicProperty(`preferences`));
+    radius = preferencesData.radius;
+    breakBlocks = preferencesData.breakBlocks;
+    underWater = preferencesData.underWater;
+});
+
 world.afterEvents.itemUse.subscribe(iuEvent => {
     if (iuEvent.itemStack.typeId != `minecraft:stick` || iuEvent.source.typeId != `minecraft:player`) return;
     const preferenceForm = new ModalFormData()
@@ -16,9 +24,20 @@ world.afterEvents.itemUse.subscribe(iuEvent => {
         radius = response.formValues[0];
         breakBlocks = response.formValues[1];
         underWater = response.formValues[2];
-        iuEvent.source.runCommandAsync(`say ~~~~~~\n§4§lExplosion Mobs§r\n設定を変更しました\n爆発範囲: §4§l${radius}§r\nブロックを破壊する: §4§l${breakBlocks}§r\n水中の爆発を許可する: §4§l${underWater}§r\n~~~~~~`);
+        savedPreferencesData();
+        world.sendMessage(`~~~~~~\n§4§lExplosion Mobs§r\n§l${iuEvent.source.name}§rが設定を変更しました\n爆発範囲: §4§l${radius}§r\nブロックを破壊する: §4§l${breakBlocks}§r\n水中の爆発を許可する: §4§l${underWater}§r\n~~~~~~`);
     });
 });
+
+function savedPreferencesData() {
+    let preferencesData = {
+        radius: radius,
+        breakBlocks: breakBlocks,
+        underWater: underWater
+    };
+    let preferencesDataStr = JSON.stringify(preferencesData);
+    world.setDynamicProperty(`preferences`, preferencesDataStr);
+}
 
 world.afterEvents.entityHitEntity.subscribe(ehEvent => {
     if (ehEvent.hitEntity.typeId != `minecraft:player`) return;

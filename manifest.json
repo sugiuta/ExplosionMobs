@@ -4,7 +4,7 @@
       "description": "モブに攻撃されると爆発するアドオンです。ゲーム内で木の棒を使用することによって設定を開くことができます。このアドオンを使用する際は§2§lベータAPI§rを有効にしてください。",
       "name": "§4§lExplosion §fMobs",
       "uuid": "52a36735-606a-4d1b-91ec-56bc9ecd85aa",
-      "version": [ 1, 0, 0 ],
+      "version": [ 1, 0, 1 ],
       "min_engine_version": [ 1, 20, 40 ]
   },
   "modules": [
@@ -13,7 +13,7 @@
           "type": "script",
           "language": "javascript",
           "uuid": "0d86cf21-e7e4-492a-9552-ddc9746c519c",
-          "version": [ 1, 0, 0 ],
+          "version": [ 1, 0, 1 ],
           "entry": "scripts/main.js"
       }
   ],

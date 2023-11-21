@@ -2,7 +2,7 @@
 
 # パッケージ名を指定
 name="Explosion_Mobs"
-version="1.0.0"
+version="1.0.1"
 
 # ディレクトリの作成
 mkdir -p ./package
